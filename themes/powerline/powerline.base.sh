@@ -64,6 +64,10 @@ function __powerline_user_info_prompt {
     *)
       if [[ -n "${SSH_CLIENT}" ]]; then
         user_info="${USER_INFO_SSH_CHAR}${USER}@${HOSTNAME}"
+      elif [ -f "/run/.toolboxenv" ]
+      then
+        TOOLBX=$(cat /run/.containerenv | grep -E '^name="' | cut -d \" -f 2)
+        user_info="${USER}@${TOOLBX}"
       else
         user_info="${USER}"
       fi
